@@ -115,11 +115,7 @@ public class SwiftAlarmPlugin: NSObject, FlutterPlugin {
             }
         } else {
             do {
-                let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-                let filename = String(assetAudio.split(separator: "/").last ?? "")
-                let assetAudioURL = documentsDirectory.appendingPathComponent(filename)
-
-                let audioPlayer = try AVAudioPlayer(contentsOf: assetAudioURL)
+                let audioPlayer = try AVAudioPlayer(contentsOf: URL(string: assetAudio)!)
                 self.audioPlayers[id] = audioPlayer
             } catch {
                 result(FlutterError.init(code: "NATIVE_ERR", message: "[Alarm] Error loading given local asset path: \(assetAudio)", details: nil))
